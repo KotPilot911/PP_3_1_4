@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -60,8 +58,10 @@ public class AdminController {
     @GetMapping("updateUser/{id}")
     public String updateUser(@PathVariable("id") long id, Model model) {
         List<Role> list = userService.getAllRoles();
+        List<Role> listOfUserRoles = userService.getAllRolesFromUser(id);
         model.addAttribute("newUser", userService.getUser(id));
         model.addAttribute("roles", list);
+        model.addAttribute("userroles", listOfUserRoles);
         return "user-info";
     }
 

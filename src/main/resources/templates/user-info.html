@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Add/Update user</title>
-    <link href="/main.css" rel="stylesheet">
-
 </head>
 <body id="user-info-body">
 
@@ -38,6 +36,7 @@
                 <option th:each="thisRole : ${roles}"
                         th:value="${thisRole.id}"
                         th:utext="${thisRole.role}"
+                        th:selected="${#lists.contains(userroles, thisRole)}"
                 ></option>
             </select>
         </div>
