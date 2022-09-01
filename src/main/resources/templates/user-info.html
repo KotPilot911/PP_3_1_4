@@ -16,9 +16,6 @@
     <form th:method="post" th:action="@{/admin/saveUser}" th:object="${newUser}" id="main-form">
 
         <input hidden type="number" th:field="*{id}" id="id" name="id"/>
-
-<!--        <label for="username">Username: </label>-->
-<!--        <input type="text" th:field="*{username}" id="username" placeholder="Username" name="username" th:required="true"/>-->
         <br>
         <label for="password">Password</label>
         <input type="text" th:field="*{password}" id="password" placeholder="Password" th:required="true"/>
