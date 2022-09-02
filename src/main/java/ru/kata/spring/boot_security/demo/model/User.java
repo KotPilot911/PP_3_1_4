@@ -86,7 +86,8 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-
-
+    public String getEmail() {
+        return email;
+    }
 
 }

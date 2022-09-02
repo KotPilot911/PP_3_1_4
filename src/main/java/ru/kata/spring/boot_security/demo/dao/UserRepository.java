@@ -1,13 +1,11 @@
 package ru.kata.spring.boot_security.demo.dao;
 
 
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+import ru.kata.spring.boot_security.demo.model.User;
 
 
 public interface UserRepository extends JpaRepository<User, Long> {
+//    User getUserByUsername(String name);
     User getUserByEmail(String email);
 }
