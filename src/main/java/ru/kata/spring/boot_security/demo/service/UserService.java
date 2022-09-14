@@ -12,11 +12,15 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    void saveUser(User user);
+    void save(User user);
+
+    void update(User user);
 
     User getUser(long id);
 
     void deleteUser(long id);
+
+    User passwordCoder(User user);
 
     List<Role> getAllRoles();
 

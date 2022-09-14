@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,29 +19,38 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotNull
     @Column(name = "password")
     private String password;
-
+    @NotNull
     @Column(name = "first_name")
     private String firstname;
-
+    @NotNull
     @Column(name = "last_name")
     private String lastname;
-
+    @NotNull
     @Column(name = "age")
     private int age;
-
+    @NotNull
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(String password, String firstname, String lastname, int age, String email, Set<Role> roles) {
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
+        this.email = email;
+        this.roles = roles;
     }
 
     @Override

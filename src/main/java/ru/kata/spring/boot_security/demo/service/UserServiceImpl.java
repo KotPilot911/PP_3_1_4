@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleRepository;
@@ -21,6 +22,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -28,8 +35,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public void save(User user) {
+        userRepository.save(passwordCoder(user));
+    }
+
+    @Override
+    public void update(User user) {
+        {
+            userRepository.save(user);
+        }
     }
 
     @Override
@@ -46,6 +60,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User passwordCoder(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return user;
     }
 
     @Override

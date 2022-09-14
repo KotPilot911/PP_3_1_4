@@ -11,58 +11,47 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
+
     @Column(name = "role")
     private String role;
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
 
-    public Role(Long id, String role) {
-        this.id = id;
-        this.role = role;
+    public Role() {
     }
+
+
 
     public Role(Long id) {
         this.id = id;
     }
 
-    @Override
-    public String getAuthority() {
-        System.out.println("4  Role, getAuthority");
-        System.out.println(role);
+    public Role(String role) {
+        this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRole() {
         return role;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Role role1 = (Role) o;
-
-        if (id != null ? !id.equals(role1.id) : role1.id != null) return false;
-        if (role != null ? !role.equals(role1.role) : role1.role != null) return false;
-        return users != null ? users.equals(role1.users) : role1.users == null;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        result = 31 * result + (users != null ? users.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return this.role;
+    public String getAuthority() {
+        return getRole();
     }
 }
