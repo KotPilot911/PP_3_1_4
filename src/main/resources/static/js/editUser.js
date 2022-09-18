@@ -10,6 +10,18 @@ async function editUser(modal, id) {
     modal.find('.modal-footer').append(closeButton);
 
     user.then(user => {
+        let adminSelect = "";
+        let userSelect = "";
+
+        for (let i = 0; i < user.roles.length; i++) {
+            if (user.roles[i].role === "ROLE_ADMIN") {
+                adminSelect = "selected";
+            }
+            if (user.roles[i].role === "ROLE_USER") {
+                userSelect = "selected";
+            }
+        }
+
         let bodyForm = `
             <form class="form-group text-center" id="editUser">
                <div class="form-group">
@@ -45,8 +57,8 @@ async function editUser(modal, id) {
                 <div class="form-group">
                     <label for="roles" class="com-form-label">Role</label>
                     <select multiple id="roles" size="2" class="form-control" style="max-height: 100px">
-                    <option value="ROLE_USER">USER</option>
-                    <option value="ROLE_ADMIN">ADMIN</option>
+                    <option value="ROLE_USER" ${userSelect}>USER</option>
+                    <option value="ROLE_ADMIN" ${adminSelect}>ADMIN</option>
                     </select>
                 </div>
             </form>
